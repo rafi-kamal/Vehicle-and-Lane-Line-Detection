@@ -73,7 +73,7 @@ def pipline(img, visualize_pipleine=False, poly_weight=0.3):
 
 
 # pipline(mpimg.imread('test_images/test10.jpg'), visualize_pipleine=True)
-input_filename = 'test_video.mp4'
+input_filename = 'project_video.mp4'
 output_filename = 'processed_' + input_filename
 clip = VideoFileClip(input_filename)
 output_video = clip.fl_image(pipline)
