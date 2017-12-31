@@ -2,10 +2,15 @@
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 
+[video1]: ./processed_project_video.mp4
 [image1]: ./output_images/Pipeline1.png "Lane Line Detection Pipeline"
 [image2]: ./output_images/Pipeline2.png "Vehicle Detection Pipeline"
 
 This is the term 1 final project from Udacity's Self-Driving Car Nanodegree program. In this project I've developed two pipelines, one for detecting lane lines, and the other for identifying and tracking a vehicle.
+
+
+![video1]
+
 Lane Line Detection Pipeline
 ----------------------------
  
