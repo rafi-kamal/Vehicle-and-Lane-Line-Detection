@@ -51,7 +51,6 @@ def get_hog_feature(image, orientations=9, pixel_per_cell=8, cell_per_block=2):
 def get_labeled_hog_data(car_images, not_car_images):
   features = [get_hog_feature(car_image) for car_image in car_images] + [
     get_hog_feature(not_car_image) for not_car_image in not_car_images]
-  print(len(features))
   labels = [1 for x in car_images] + [0 for y in not_car_images]
 
   return features, labels
@@ -114,7 +113,7 @@ for sliding_window in sliding_windows:
   heat_map[sliding_window] = 0.0
 
 
-def identify_windows_with_car(img, alpha=0.5, cutoff=1.9):
+def identify_windows_with_car(img, cutoff=20):
   gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
   hog_features = []
   for window in sliding_windows:
@@ -127,10 +126,13 @@ def identify_windows_with_car(img, alpha=0.5, cutoff=1.9):
 
   windows_with_car = []
   for idx, window in enumerate(sliding_windows):
-    new_value = heat_map[window] * alpha + are_cars[idx]
-    heat_map[window] = new_value
-    if new_value > cutoff:
-      windows_with_car.append(window)
+    if are_cars[idx] == 1:
+      consecutive_count = heat_map[window] + 1
+      heat_map[window] = consecutive_count
+      if consecutive_count > cutoff:
+        windows_with_car.append(window)
+    else:
+      heat_map[window] = 0
 
   return windows_with_car
 
