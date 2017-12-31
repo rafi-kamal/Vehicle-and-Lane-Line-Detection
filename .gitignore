@@ -97,7 +97,6 @@ ENV/
 
 .DS_Store
 .idea/
-output_images/
 training_data/
 examples/
 test_video.mp4

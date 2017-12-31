@@ -2,14 +2,14 @@
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 
-[video1]: ./processed_project_video.mp4
-[image1]: ./output_images/Pipeline1.png "Lane Line Detection Pipeline"
-[image2]: ./output_images/Pipeline2.png "Vehicle Detection Pipeline"
+[video1]: https://github.com/rafi-kamal/Vehicle-and-Lane-Line-Detection/blob/master/processed_project_video.mp4
+[image1]: pipeline_images/Pipeline1.png
+[image2]: pipeline_images/Pipeline2.png
 
 This is the term 1 final project from Udacity's Self-Driving Car Nanodegree program. In this project I've developed two pipelines, one for detecting lane lines, and the other for identifying and tracking a vehicle.
 
 
-![video1]
+![Output Video][video1]
 
 Lane Line Detection Pipeline
 ----------------------------
@@ -21,7 +21,7 @@ Lane Line Detection Pipeline
  - Fit a polynomial on left side points and another on right side points to get two continuous lines
  - Reverse the perspective transform and use these two lines to color the lane
  
-![image1]
+![Lane Line Detection Pipeline][image1]
 
 Vehicle Detection Pipeline
 --------------------------
@@ -31,7 +31,7 @@ Vehicle Detection Pipeline
  - Use sliding windows of different sizes to take out a rectangular portion of the image, resize it to 64*64 and use the trained model to predict if that portion contains a car or not
  - Merge all the windows containing cars
  
-![image2]
+![Vehicle Detection Pipeline][image2]
 
 Running the Code
 ----------------
