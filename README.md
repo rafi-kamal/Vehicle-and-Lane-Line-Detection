@@ -14,8 +14,8 @@ This is the term 1 final project from Udacity's Self-Driving Car Nanodegree prog
 Lane Line Detection Pipeline
 ----------------------------
  
- - Correct the distortion introduced by the camera (`camera_cal` folder contains images used to undistorted the image).
- - Do a perspective transform on the image, so that the image represents the actual (scaled) distance between the lane lines.
+ - Correct the distortion introduced by the camera (`camera_cal` folder contains images used to undistorted the image)
+ - Do a perspective transform on the image, so that the image represents the actual (scaled) distance between the lane lines
  - Use color and gradient filtering to identify the portion of the image containing the lane lines
  - Divide the image into different vertical segments and identifying points on the lane lines on left and right sides of these segments
  - Fit a polynomial on left side points and another on right side points to get two continuous lines
@@ -26,7 +26,7 @@ Lane Line Detection Pipeline
 Vehicle Detection Pipeline
 --------------------------
 
- - Train a classifier to identify car vs non-car images. I've trained my classifier in 64*64 images from [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html) and [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/). The trained model is saved in `model.pkl` file, so you don't need to re-train the model.
+ - Train a classifier to identify car vs non-car images. I've trained my classifier in 64*64 images from [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html) and [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/). The trained model is saved in `model.pkl` file, so you don't need to re-train the model
  - Use the [HOG](https://en.wikipedia.org/wiki/Histogram_of_oriented_gradients) features of the image to train the model  
  - Use sliding windows of different sizes to take out a rectangular portion of the image, resize it to 64*64 and use the trained model to predict if that portion contains a car or not
  - Merge all the windows containing cars
