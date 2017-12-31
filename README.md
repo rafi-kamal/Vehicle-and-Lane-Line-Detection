@@ -1,37 +1,36 @@
-# Vehicle Detection
+# Vehicle and Lane Line Detection
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 
-In this project, your goal is to write a software pipeline to detect vehicles in a video (start with the test_video.mp4 and later implement on full project_video.mp4), but the main output or product we want you to create is a detailed writeup of the project.  Check out the [writeup template](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup.  
+[image1]: ./output_images/Pipeline1.png "Lane Line Detection Pipeline"
+[image2]: ./output_images/Pipeline2.png "Vehicle Detection Pipeline"
 
-Creating a great writeup:
----
-A great writeup should include the rubric points as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
+This is the term 1 final project from Udacity's Self-Driving Car Nanodegree program. In this project I've developed two pipelines, one for detecting lane lines, and the other for identifying and tracking a vehicle.
+Lane Line Detection Pipeline
+----------------------------
+ 
+ - Correct the distortion introduced by the camera (`camera_cal` folder contains images used to undistorted the image).
+ - Do a perspective transform on the image, so that the image represents the actual (scaled) distance between the lane lines.
+ - Use color and gradient filtering to identify the portion of the image containing the lane lines
+ - Divide the image into different vertical segments and identifying points on the lane lines on left and right sides of these segments
+ - Fit a polynomial on left side points and another on right side points to get two continuous lines
+ - Reverse the perspective transform and use these two lines to color the lane
+ 
+![image1]
 
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
+Vehicle Detection Pipeline
+--------------------------
 
-You can submit your writeup in markdown or use another method and submit a pdf instead.
+ - Train a classifier to identify car vs non-car images. I've trained my classifier in 64*64 images from [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html) and [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/). The trained model is saved in `model.pkl` file, so you don't need to re-train the model.
+ - Use the [HOG](https://en.wikipedia.org/wiki/Histogram_of_oriented_gradients) features of the image to train the model  
+ - Use sliding windows of different sizes to take out a rectangular portion of the image, resize it to 64*64 and use the trained model to predict if that portion contains a car or not
+ - Merge all the windows containing cars
+ 
+![image2]
 
-The Project
----
+Running the Code
+----------------
 
-The goals / steps of this project are the following:
+Run `main.py`, it will read the video stream from `project_video.mp4` and write it to `processed_project_video.mp4`. Note that it takes quite a while to process the video stream (25 minutes in my machine). If you want to use another video, make sure the size is 1280*720.
 
-* Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classifier Linear SVM classifier
-* Optionally, you can also apply a color transform and append binned color features, as well as histograms of color, to your HOG feature vector. 
-* Note: for those first two steps don't forget to normalize your features and randomize a selection for training and testing.
-* Implement a sliding-window technique and use your trained classifier to search for vehicles in images.
-* Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
-* Estimate a bounding box for vehicles detected.
-
-Here are links to the labeled data for [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) examples to train your classifier.  These example images come from a combination of the [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html), the [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/), and examples extracted from the project video itself.   You are welcome and encouraged to take advantage of the recently released [Udacity labeled dataset](https://github.com/udacity/self-driving-car/tree/master/annotations) to augment your training data.  
-
-Some example images for testing your pipeline on single frames are located in the `test_images` folder.  To help the reviewer examine your work, please save examples of the output from each stage of your pipeline in the folder called `ouput_images`, and include them in your writeup for the project by describing what each image shows.    The video called `project_video.mp4` is the video your pipeline should work well on.  
-
-**As an optional challenge** Once you have a working pipeline for vehicle detection, add in your lane-finding algorithm from the last project to do simultaneous lane-finding and vehicle detection!
-
-**If you're feeling ambitious** (also totally optional though), don't stop there!  We encourage you to go out and take video of your own, and show us how you would implement this project on a new video!
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
-
+If you want to tweak the code, it's better to start with a single image. Comment the last four lines of `main.py` and uncomment the previous line. Also change the cutoff to zero of `identify_windows_with_car()` method in `vehicle_detection.py`. Running `main.py` afterwords will read a single image from the `test_images` directory and show the output.
